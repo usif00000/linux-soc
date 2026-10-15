@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOC Analysis - scan-test.pcap</title>
+<title>SOC Analysis - new-capture.pcap</title>
 <style>
 body { font-family: system-ui, sans-serif; margin: 0; background: #f3f5f8; color: #172033; }
 main { max-width: 1050px; margin: auto; padding: 24px; }
@@ -26,40 +26,24 @@ footer { color: #5b6575; font-size: .9rem; padding: 8px 0 24px; }
 <body><main>
 <header>
 <h1>Wireshark SOC Analyzer</h1>
-<p><strong>Capture:</strong> scan-test.pcap</p>
-<p class="muted">Generated at: 2026-10-15T05:17:55.909008+00:00</p>
+<p><strong>Capture:</strong> new-capture.pcap</p>
+<p class="muted">Generated at: 2026-10-15T17:01:58.013502+00:00</p>
 <div class="stats">
-<div class="stat"><strong>166</strong>Packets analyzed</div>
-<div class="stat"><strong>1</strong>Protocol labels</div>
-<div class="stat"><strong>2</strong>Findings</div>
+<div class="stat"><strong>51</strong>Packets analyzed</div>
+<div class="stat"><strong>3</strong>Protocol labels</div>
+<div class="stat"><strong>0</strong>Findings</div>
 </div>
 </header>
 <section><h2>Protocol statistics</h2>
 <table><thead><tr><th>Protocol label</th><th>Packet count</th></tr></thead>
-<tbody><tr><td>TCP</td><td>166</td></tr></tbody></table></section>
-<section><h2>Security findings</h2>
-        <article class="finding">
-          <span class="badge medium">MEDIUM</span>
-          <h3>possible_port_scan</h3>
-          <ul><li><strong>Source Ip:</strong> 127.0.0.1</li><li><strong>Destination Ip:</strong> 127.0.0.1</li><li><strong>Distinct Destination Ports:</strong> 81</li><li><strong>Recommended analyst actions:</strong><ol><li>Verify whether the source host and scan activity are authorized.</li><li>Review the targeted ports and identify services listening on the destination.</li><li>Correlate the event with firewall, endpoint, and authentication logs.</li><li>Check surrounding traffic for successful connections or follow-on activity.</li><li>Document the result as authorized testing, suspicious activity, or inconclusive.</li></ol></li><li><strong>Ports:</strong> 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100</li></ul>
-          <p><strong>Evidence:</strong> At least 10 distinct destination ports received initial TCP SYN attempts.</p>
-          <p><strong>Analyst note:</strong> Heuristic only; legitimate activity and incomplete captures can produce similar patterns.</p>
-        </article>
-        
-        <article class="finding">
-          <span class="badge low">LOW</span>
-          <h3>many_tcp_resets</h3>
-          <ul><li><strong>Source Ip:</strong> 127.0.0.1</li><li><strong>Reset Count:</strong> 81</li><li><strong>Recommended analyst actions:</strong><ol><li>Check whether the reset packets relate to a known scan or application behavior.</li><li>Review source and destination addresses and the affected ports.</li><li>Correlate with firewall and endpoint logs before treating the activity as malicious.</li><li>Record whether the resets are expected, recurring, or unexplained.</li></ol></li></ul>
-          <p><strong>Evidence:</strong> At least 20 TCP reset packets had this source IP.</p>
-          <p><strong>Analyst note:</strong> Resets can result from ordinary application or network issues.</p>
-        </article>
-        </section>
+<tbody><tr><td>TCP</td><td>25</td></tr><tr><td>TLSv1.2</td><td>22</td></tr><tr><td>SSDP</td><td>4</td></tr></tbody></table></section>
+<section><h2>Security findings</h2><p class="empty">No findings were generated for this capture. This does not guarantee the capture is free of threats.</p></section>
 <section><h2>Top source IPs</h2>
 <table><thead><tr><th>IP address</th><th>Packet count</th></tr></thead>
-<tbody><tr><td>127.0.0.1</td><td>166</td></tr></tbody></table></section>
+<tbody><tr><td>192.168.100.33</td><td>24</td></tr><tr><td>172.64.148.235</td><td>14</td></tr><tr><td>104.18.39.21</td><td>6</td></tr><tr><td>192.168.100.1</td><td>4</td></tr><tr><td>140.82.114.25</td><td>2</td></tr><tr><td>150.171.109.132</td><td>1</td></tr></tbody></table></section>
 <section><h2>Top destination IPs</h2>
 <table><thead><tr><th>IP address</th><th>Packet count</th></tr></thead>
-<tbody><tr><td>127.0.0.1</td><td>166</td></tr></tbody></table></section>
+<tbody><tr><td>192.168.100.33</td><td>23</td></tr><tr><td>172.64.148.235</td><td>14</td></tr><tr><td>104.18.39.21</td><td>6</td></tr><tr><td>239.255.255.250</td><td>4</td></tr><tr><td>35.190.80.1</td><td>2</td></tr><tr><td>150.171.109.132</td><td>1</td></tr><tr><td>140.82.114.25</td><td>1</td></tr></tbody></table></section>
 <section><h2>Frequently observed DNS queries</h2>
 <table><thead><tr><th>Domain</th><th>Query count</th></tr></thead>
 <tbody><tr><td colspan="2">No data</td></tr></tbody></table></section>

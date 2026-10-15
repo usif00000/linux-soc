@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+analyzer.py.backup
+reports/analysis.json
+reports/analysis.html
+captures/*.pcap
+captures/*.pcapng

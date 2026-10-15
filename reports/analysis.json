@@ -1,127 +1,72 @@
 {
   "tool": "Wireshark SOC Analyzer",
-  "generated_at": "2026-10-15T05:17:55.909008+00:00",
-  "capture_file": "scan-test.pcap",
-  "packet_count": 166,
+  "generated_at": "2026-10-15T17:01:58.013502+00:00",
+  "capture_file": "new-capture.pcap",
+  "packet_count": 51,
   "protocols": {
-    "TCP": 166
+    "TCP": 25,
+    "TLSv1.2": 22,
+    "SSDP": 4
   },
   "top_source_ips": [
     [
-      "127.0.0.1",
-      166
+      "192.168.100.33",
+      24
+    ],
+    [
+      "172.64.148.235",
+      14
+    ],
+    [
+      "104.18.39.21",
+      6
+    ],
+    [
+      "192.168.100.1",
+      4
+    ],
+    [
+      "140.82.114.25",
+      2
+    ],
+    [
+      "150.171.109.132",
+      1
     ]
   ],
   "top_destination_ips": [
     [
-      "127.0.0.1",
-      166
+      "192.168.100.33",
+      23
+    ],
+    [
+      "172.64.148.235",
+      14
+    ],
+    [
+      "104.18.39.21",
+      6
+    ],
+    [
+      "239.255.255.250",
+      4
+    ],
+    [
+      "35.190.80.1",
+      2
+    ],
+    [
+      "150.171.109.132",
+      1
+    ],
+    [
+      "140.82.114.25",
+      1
     ]
   ],
   "top_dns_queries": [],
-  "findings_count": 2,
-  "findings": [
-    {
-      "type": "possible_port_scan",
-      "severity": "medium",
-      "source_ip": "127.0.0.1",
-      "destination_ip": "127.0.0.1",
-      "distinct_destination_ports": 81,
-      "ports": [
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30",
-        "31",
-        "32",
-        "33",
-        "34",
-        "35",
-        "36",
-        "37",
-        "38",
-        "39",
-        "40",
-        "41",
-        "42",
-        "43",
-        "44",
-        "45",
-        "46",
-        "47",
-        "48",
-        "49",
-        "50",
-        "51",
-        "52",
-        "53",
-        "54",
-        "55",
-        "56",
-        "57",
-        "58",
-        "59",
-        "60",
-        "61",
-        "62",
-        "63",
-        "64",
-        "65",
-        "66",
-        "67",
-        "68",
-        "69",
-        "70",
-        "71",
-        "72",
-        "73",
-        "74",
-        "75",
-        "76",
-        "77",
-        "78",
-        "79",
-        "80",
-        "81",
-        "82",
-        "83",
-        "84",
-        "85",
-        "86",
-        "87",
-        "88",
-        "89",
-        "90",
-        "91",
-        "92",
-        "93",
-        "94",
-        "95",
-        "96",
-        "97",
-        "98",
-        "99",
-        "100"
-      ],
-      "evidence": "At least 10 distinct destination ports received initial TCP SYN attempts.",
-      "note": "Heuristic only; legitimate activity and incomplete captures can produce similar patterns."
-    },
-    {
-      "type": "many_tcp_resets",
-      "severity": "low",
-      "source_ip": "127.0.0.1",
-      "reset_count": 81,
-      "evidence": "At least 20 TCP reset packets had this source IP.",
-      "note": "Resets can result from ordinary application or network issues."
-    }
-  ],
+  "findings_count": 0,
+  "findings": [],
   "limitations": [
     "Findings are heuristic leads, not proof of malicious activity.",
     "Encrypted application payloads generally cannot be inspected without authorized decryption.",
