@@ -66,6 +66,11 @@ Open the generated HTML report:
 ```bash
 xdg-open reports/analysis.html
 ```
+If wlan0 isn't your active interface, check available interfaces:
+
+```bash
+tshark -D
+```
 
 The analyzer writes its reports to the `reports/` directory. Each run updates the report files, so preserve copies if you need historical results.
 
