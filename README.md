@@ -48,6 +48,12 @@ tshark --version
 
 ## Usage
 
+Capture new network traffic
+
+To capture traffic from your Wi-Fi interface for 30 seconds:
+```bash
+timeout 30s tshark -i wlan0 -w captures/new-capture.pcap
+
 Analyze a capture file:
 
 ```bash
