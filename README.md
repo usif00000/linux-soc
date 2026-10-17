@@ -58,7 +58,7 @@ timeout 30s tshark -i wlan0 -w captures/new-capture.pcap
 Analyze a capture file:
 
 ```bash
-python3 analyzer.py captures/scan-test.pcap
+python3 analyzer.py captures/new-capture.pcap
 ```
 
 Open the generated HTML report:
