@@ -7,3 +7,13 @@ reports/analysis.json
 reports/analysis.html
 captures/*.pcap
 captures/*.pcapng
+
+# Local captures and generated reports
+captures/*.pcap
+captures/*.pcapng
+reports/*
+!reports/.gitkeep
+
+# Local backups
+*.backup*
+*.bak

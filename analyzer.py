@@ -53,6 +53,9 @@ def analyze(pcap):
     dns_queries = Counter()
     syn_ports = defaultdict(set)
     reset_sources = Counter()
+    syn_attempts = Counter()
+    syn_destinations = Counter()
+
     packet_count = len(packets)
 
     for p in packets:
@@ -66,10 +69,15 @@ def analyze(pcap):
         if dst:
             destinations[dst] += 1
 
-        # Count distinct destination ports for initial TCP SYN packets.
-        if src and dst and p["tcp.flags.syn"].lower() in ("true", "1") and p["tcp.flags.ack"].lower() in ("false", "0"):
-            if p["tcp.dstport"]:
-                syn_ports[(src, dst)].add(p["tcp.dstport"])
+        # Record initial TCP SYN attempts as connection evidence.
+        is_syn = p["tcp.flags.syn"].lower() in ("true", "1")
+        is_ack = p["tcp.flags.ack"].lower() in ("true", "1")
+
+        if src and dst and is_syn and not is_ack and p["tcp.dstport"]:
+            destination_port = p["tcp.dstport"]
+            syn_ports[(src, dst)].add(destination_port)
+            syn_attempts[(src, dst, destination_port)] += 1
+            syn_destinations[dst] += 1
 
         if src and p["tcp.flags.reset"].lower() in ("true", "1"):
             reset_sources[src] += 1
@@ -119,6 +127,11 @@ def analyze(pcap):
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "capture_file": pcap.name,
         "packet_count": packet_count,
+        "tcp_syn_attempt_count": sum(syn_attempts.values()),
+        "tcp_syn_destination_summary": [
+            {"destination_ip": dst, "attempt_count": count}
+            for dst, count in syn_destinations.most_common(10)
+        ],
         "protocols": dict(protocols.most_common()),
         "top_source_ips": sources.most_common(10),
         "top_destination_ips": destinations.most_common(10),
@@ -187,6 +200,12 @@ def render_html(report):
             f"<tr><td>{esc(ip)}</td><td>{count}</td></tr>"
             for ip, count in items
         ) or '<tr><td colspan="2">No data</td></tr>'
+
+    syn_rows = "".join(
+        f"<tr><td>{esc(item['destination_ip'])}</td>"
+        f"<td>{item['attempt_count']}</td></tr>"
+        for item in report.get("tcp_syn_destination_summary", [])
+    ) or '<tr><td colspan="2">No initial TCP SYN attempts recorded</td></tr>'
 
     finding_cards = []
     for finding in report["findings"]:
@@ -274,6 +293,11 @@ footer {{ color: #5b6575; font-size: .9rem; padding: 8px 0 24px; }}
 <section><h2>Protocol statistics</h2>
 <table><thead><tr><th>Protocol label</th><th>Packet count</th></tr></thead>
 <tbody>{protocol_rows}</tbody></table></section>
+<section><h2>TCP connection evidence</h2>
+<p>Initial TCP SYN attempts: <strong>{report.get('tcp_syn_attempt_count', 0)}</strong></p>
+<p class="muted">SYN attempts indicate connection attempts; they do not by themselves prove scanning or malicious activity.</p>
+<table><thead><tr><th>Destination IP</th><th>SYN attempts</th></tr></thead>
+<tbody>{syn_rows}</tbody></table></section>
 <section><h2>Security findings</h2>{findings_html}</section>
 <section><h2>Top source IPs</h2>
 <table><thead><tr><th>IP address</th><th>Packet count</th></tr></thead>
@@ -317,6 +341,7 @@ def main():
     print("=== Wireshark SOC Analyzer ===")
     print(f"Capture: {pcap.name}")
     print(f"Packets analyzed: {report['packet_count']}")
+    print(f"Initial TCP SYN attempts: {report.get('tcp_syn_attempt_count', 0)}")
     print(f"Protocols: {json.dumps(report['protocols'])}")
     print(f"Findings: {report['findings_count']}")
     for finding in report["findings"]:
