@@ -48,6 +48,13 @@ tshark --version
 
 ## Usage
 
+Capture new network traffic
+
+To capture traffic from your Wi-Fi interface for 30 seconds:
+
+```bash
+timeout 30s tshark -i wlan0 -w captures/new-capture.pcap
+```
 Analyze a capture file:
 
 ```bash
@@ -58,6 +65,11 @@ Open the generated HTML report:
 
 ```bash
 xdg-open reports/analysis.html
+```
+If wlan0 isn't your active interface, check available interfaces:
+
+```bash
+tshark -D
 ```
 
 The analyzer writes its reports to the `reports/` directory. Each run updates the report files, so preserve copies if you need historical results.
